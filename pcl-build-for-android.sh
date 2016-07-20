@@ -82,13 +82,14 @@ echo "BOOST cross-compiling stop!"
 rm -rf ${ROOT}/boost-android
 mkdir ${ROOT}/boost-android
 mkdir ${ROOT}/boost-android/lib
+mkdir ${ROOT}/boost-android/include
 
 mv ${ROOT}/boost/libboost*.a ${ROOT}/boost-android/lib/
-cp -rf ${BOOST_ROOT}/boost/ ${ROOT}/boost-android/
+cp -rf ${BOOST_ROOT}/boost/ ${ROOT}/boost-android/include
 
 BOOST_ROOT=${ROOT}/boost-android
 Boost_LIBRARIES=${ROOT}/boost-android/lib
-Boost_INCLUDE_DIRS=${ROOT}/boost
+Boost_INCLUDE_DIRS=${ROOT}/boost-android/include
 
 echo
 echo
