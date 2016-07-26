@@ -11,7 +11,9 @@ export ANDROID_STL_FORCE_FEATURES=ON
 export CFLAGS="-pipe -w"
 export CXXFLAGS=${CFLAGS}
 
-cpus=$(grep -cP '^processor' /proc/cpuinfo)
+[[ -z "${jobs}" ]] && jobs=$(grep -cP '^processor' /proc/cpuinfo)
+
+echo -e "\n\n\033[1;32mCompiling with ${jobs} jobs ...\033[m"
 
 # check that ANDROID_NDK points to a android ndk folder
 if [[ ! -d ${ANDROID_NDK} ]]
@@ -42,7 +44,7 @@ cmake . -DCMAKE_BUILD_TYPE:STRING=Release \
   -DBUILD_PYTHON_BINDINGS:BOOL=OFF \
   -DBUILD_MATLAB_BINDINGS:BOOL=OFF
 
-make -j${cpus}
+make -j${jobs}
 
 cd ..
 echo "FLANN cross-compiling finished!"
@@ -72,7 +74,7 @@ cmake . -DCMAKE_BUILD_TYPE:STRING=Release \
   -DCMAKE_TOOLCHAIN_FILE:FILEPATH=$ANDROIDTOOLCHAIN \
   -DBUILD_SHARED_LIBS:BOOL=OFF
 
-make -j${cpus}
+make -j${jobs}
 
 cd ..
 echo "BOOST cross-compiling finished!"
@@ -140,7 +142,15 @@ function cmake_pcl {
 cmake_pcl
 cmake_pcl
 
-make -j${cpus}
+echo -e "\n\n\033[1;32m this will run for a while... time to drink a\n"
+echo -e "   ( ( "
+echo -e "    ) ) "
+echo -e "  ........ "
+echo -e "  |      |] "
+echo -e "  \      /  "
+echo -e "   '----' \033[m\n\n"
+
+make -j${jobs}
 
 cd ..
 echo "PCL cross-compiling finished!"
