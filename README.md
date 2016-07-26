@@ -1,8 +1,27 @@
 # pcl-for-android
 
 Bash scripts for cross compiling PCL ( https://github.com/PointCloudLibrary/pcl ) and its dependencies for Android.
+Scripts were tested for
 
-## How-to
+* Fedora 23, 24
+* Ubuntu 16.04
+* Android NDK 10e, 11c, 12b
+
+## Install Requirements
+
+Ubuntu
+
+```
+$ sudo apt-get install git make cmake
+```
+
+Fedora
+
+```
+$ sudo dnf install git make cmake
+```
+
+## Cross-compilation
 
 ```
 $ git clone https://github.com/bashbug/pcl-for-android.git
