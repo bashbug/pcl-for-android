@@ -29,6 +29,16 @@ $ export ANDROID_NDK=PATH_TO_YOUR_LOCAL_ANDROID_NDK_FOLDER
 $ ./download-setup.sh
 $ ./pcl-build-for-android.sh
 ```
+The compilations within the pcl-build-for-android.sh needs at least 4GB RAM + 4 GB Swap or 8GB RAM.
+
+Default uses for make -j the number of CPUs.
+
+The number of CPUs can be reduced by setting the option as following.
+
+```
+$ jobs=NUM_OF_CPUS ./pcl-build-for-android.sh
+```
+
 
 ### download-setup.sh
 
