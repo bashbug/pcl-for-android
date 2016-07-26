@@ -33,7 +33,7 @@ The compilations within the pcl-build-for-android.sh needs at least 4GB RAM + 4 
 
 Default uses for make -j the number of CPUs.
 
-The number of CPUs can be reduced by setting the option as following.
+The number of CPUs and thereby the memory usage can be reduced by setting the option as follows.
 
 ```
 $ jobs=NUM_OF_CPUS ./pcl-build-for-android.sh
