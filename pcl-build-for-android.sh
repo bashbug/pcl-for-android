@@ -102,8 +102,12 @@ cd ${PCL_ROOT}
 
 rm -rf ${ROOT}/pcl/CMakeCache.txt ${ROOT}/pcl/CMakeFiles
 
+rm -rf ${ROOT}/pcl-android
+mkdir ${ROOT}/pcl-android
+
 function cmake_pcl {
   cmake . -DCMAKE_BUILD_TYPE:STRING=Release \
+    -DCMAKE_INSTALL_PREFIX=${ROOT}/pcl-android \
     -DCMAKE_TOOLCHAIN_FILE:FILEPATH=$ANDROIDTOOLCHAIN \
     -DBUILD_SHARED_LIBS:BOOL=OFF \
     -DPCL_SHARED_LIBS:BOOL=OFF \
@@ -142,6 +146,7 @@ function cmake_pcl {
 cmake_pcl
 cmake_pcl
 
+echo -e "\n\n\033[1;32m make -j$jobs\033[m\n"
 echo -e "\n\n\033[1;32m this will run for a while... time to drink a\n"
 echo -e "   ( ( "
 echo -e "    ) ) "
@@ -152,31 +157,9 @@ echo -e "   '----' \033[m\n\n"
 
 make -j${jobs}
 
+
+echo -e "\n\n\033[1;35m make install\033[m\n\n"
+make install
+
 cd ..
 echo "PCL cross-compiling finished!"
-
-### copy build lib files and headers to correct destination
-
-rm -rf ${ROOT}/pcl-android
-mkdir -p ${ROOT}/pcl-android/lib
-mkdir -p ${ROOT}/pcl-android/include/pcl
-
-PCL_ANDROID_ROOT=${ROOT}/pcl-android
-
-mv ${ROOT}/pcl/lib/* ${ROOT}/pcl-android/lib
-
-if [ $(ls -1 ${PCL_ROOT}/include/pcl/ | wc -l) -eq 1 ]
-then
-  echo -e "\e[1;31m[FIX]\e[m including header structure"
-  echo -e "\e[m\e[1;32m[FIX DONE]\e[m include/pcl/module/include/pcl/ -> include/pcl/module\n"
-  for DIR in ${PCL_ROOT}/*
-  do
-    if [ -d "${DIR}/include" ]
-    then
-      cp -rf ${DIR}/include/pcl/* ${PCL_ANDROID_ROOT}/include/pcl
-    fi
-  done
-  cp ${PCL_ROOT}/include/pcl/pcl_config.h ${PCL_ANDROID_ROOT}/include/pcl
-else
-  cp -rf ${PCL_ROOT}/include/pcl/* ${PCL_ANDROID_ROOT}/include/pcl
-fi
