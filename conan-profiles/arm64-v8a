@@ -1,0 +1,12 @@
+include(default)
+
+[settings]
+os=Android
+os.api_level=21
+arch=armv8
+compiler=clang
+compiler.version=8
+compiler.libcxx=libstdc++11
+
+[build_requires]
+android-toolchain/r20@bashbug/stable
