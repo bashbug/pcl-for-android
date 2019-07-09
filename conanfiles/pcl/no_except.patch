@@ -1,0 +1,32 @@
+diff --git a/segmentation/include/pcl/segmentation/supervoxel_clustering.h b/segmentation/include/pcl/segmentation/supervoxel_clustering.h
+index 05e600275..0b84ed3a1 100644
+--- a/segmentation/include/pcl/segmentation/supervoxel_clustering.h
++++ b/segmentation/include/pcl/segmentation/supervoxel_clustering.h
+@@ -1,3 +1,4 @@
++
+  
+ /*
+  * Software License Agreement (BSD License)
+@@ -41,6 +42,8 @@
+ #ifndef PCL_SEGMENTATION_SUPERVOXEL_CLUSTERING_H_
+ #define PCL_SEGMENTATION_SUPERVOXEL_CLUSTERING_H_
+ 
++
++#include <boost/version.hpp>
+ #include <pcl/features/normal_3d.h>
+ #include <pcl/pcl_base.h>
+ #include <pcl/point_cloud.h>
+@@ -524,9 +527,12 @@ namespace pcl
+           EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+       };
+ 
++#if BOOST_VERSION >= 107000
+       //Make boost::ptr_list can access the private class SupervoxelHelper
++      friend void boost::checked_delete<> (const typename pcl::SupervoxelClustering<PointT>::SupervoxelHelper *) BOOST_NOEXCEPT;
++#else
+       friend void boost::checked_delete<> (const typename pcl::SupervoxelClustering<PointT>::SupervoxelHelper *);
+-
++#endif
+       typedef boost::ptr_list<SupervoxelHelper> HelperListT;
+       HelperListT supervoxel_helpers_;
+ 
