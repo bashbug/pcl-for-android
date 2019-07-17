@@ -7,7 +7,7 @@
 
 * Ubuntu 18.04 (probably any other Linux machine too)
 * conan 1.16.1
-* pcl build needs ~14GB RAM
+* pcl build needs with 8 Cores, ~14GB RAM and around 15 min compile time.
 
 ## Install
 
@@ -28,16 +28,24 @@ For arm64-v8a with Android NDK r20:
 - boost 1.70.0
 - PCL 1.9.1 (Eigen 3.3.7 gets automatically installed)
 
+### arm64-v8a
 ```
-./pcl-build-for-android.sh
+./pcl-build-for-android.sh arm64-v8a
 ```
 
+### armeabi-v7a
+NOTE: "Starting August 1, 2019, your apps published on Google Play will need to support 64-bit architectures." (see https://developer.android.com/distribute/best-practices/develop/64-bit)
+```
+./pcl-build-for-android.sh armeabi-v7a
+```
+
+### x86_64 (emulator)
+```
+./pcl-build-for-android.sh x86_64
+```
 ## Example-app
-Example-app build needs access the same profile as used for the cross-compilation:
-```
-cp conan-profiles/arm64-v8a ~/.conan/profiles
-```
-Since we cross-compiled for arm64-v8a we have to restrict also the architecture in app/build.gradle:
+Set in app/build.gradle the abiFilters depending for which architectures you have cross-compiled.
+The default setup is arm64-v8a:
 ```
 android {
     compileSdkVersion 28
@@ -54,7 +62,28 @@ android {
     }
 ...
 ```
-
+E.g. set in app/build.gradle to support armeabi-v7a and emulator (x86_64):
+```
+android {
+    defaultConfig {
+        ...
+        ndk {
+            abiFilters "armeabi-v7a", "x86_64"
+        }
+    }
+...
+```
+Or to support all:
+```
+android {
+    defaultConfig {
+        ...
+        ndk {
+            abiFilters "arm64-v8a", "armeabi-v7a", "x86_64"
+        }
+    }
+...
+```
 Now you can run the app and you will see in Logcat:
 ```
 I/bashbug.example: pointcloud has size 5

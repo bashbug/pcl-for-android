@@ -12,7 +12,7 @@ class FlannConan(ConanFile):
     def _to_android_abi(self, arch: str) -> str:
         if arch == "armv7": return "armeabi-v7a"
         if arch == "armv8": return "arm64-v8a"
-        return None
+        return arch
 
     def _to_android_platform(self, api_level: str) -> str:
         return "android-{}".format(api_level)

@@ -13,11 +13,11 @@ class BoostConan(ConanFile):
     def _to_android_arch(self, arch: str) -> str:
         if arch == "armv7": return "armv7a"
         if arch == "armv8": return "aarch64"
-        return None
+        return arch
 
     def _to_android_address_model(self, arch: str) -> str:
         if arch == "armv7": return "32"
-        if arch == "armv8": return "64"
+        if arch == "armv8" or arch == "x86_64": return "64"
         return None
 
     def _to_boost_arch(self, arch: str) -> str:
