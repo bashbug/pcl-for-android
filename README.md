@@ -127,12 +127,10 @@ include(${CMAKE_CURRENT_BINARY_DIR}/conan_paths.cmake)
 
 ```
 `conan_cmake_run()` does two things:
-1. It parses the conanfile.txt what dependencies it should install.
-2. In conanfile.txt are two generators defined cmake_paths and cmake_find_package.
-
-  2.1 `cmake_paths` creates conan_paths.cmake within the build folder. This adds to the `CMAKE_MODULE_PATH` and `CMAKE_PREFIX_PATH` the search path for the cross-compiled libraries.
-
-  2.2. `cmake_find_package` creates auto-generated Find*.cmake files within the build folder .externalNativeBuild/cmake/debug/arm64-v8a
+* It parses the conanfile.txt what dependencies it should install.
+* In conanfile.txt are two generators defined cmake_paths and cmake_find_package.
+  * `cmake_paths` creates conan_paths.cmake within the build folder. This adds to the `CMAKE_MODULE_PATH` and `CMAKE_PREFIX_PATH` the search path for the cross-compiled libraries.
+  * `cmake_find_package` creates auto-generated Find*.cmake files within the build folder .externalNativeBuild/cmake/debug/arm64-v8a
 
 ```
 example-app/app/.externalNativeBuild
