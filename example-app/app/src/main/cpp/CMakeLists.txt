@@ -17,7 +17,7 @@ elseif("${ANDROID_ARCH_NAME}" STREQUAL "arm")
                   BUILD missing)
 elseif("${ANDROID_ARCH_NAME}" STREQUAL "x86_64")
   conan_cmake_run(CONANFILE conanfile.txt
-          PROFILE armeabi-v7a
+          PROFILE x86_64
           BASIC_SETUP
           UPDATE
           BUILD missing)
